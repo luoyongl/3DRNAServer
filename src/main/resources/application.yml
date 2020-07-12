@@ -1,0 +1,12 @@
+server:
+  port: 8082
+
+# xxl-conf
+xxl:
+  conf:
+    admin:
+      address: http://localhost:8080/xxl-conf-admin
+    env: test
+    access:
+      token:
+    mirrorfile: /data/applogs/xxl-conf/xxl-conf-mirror-sample.properties
