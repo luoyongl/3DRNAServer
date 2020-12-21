@@ -1,4 +1,4 @@
-package com.wtu.sj.ly.rna.Utils;
+package com.wtu.sj.ly.rna.utils;
 
 /**
  * @author ：LY

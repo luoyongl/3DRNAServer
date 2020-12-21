@@ -1,4 +1,4 @@
-package com.wtu.sj.ly.rna.Interceptor;/*
+package com.wtu.sj.ly.rna.interceptor;/*
 package com.wtu.sj.ly.rna.Interceptor;
 
 import org.springframework.web.servlet.HandlerInterceptor;

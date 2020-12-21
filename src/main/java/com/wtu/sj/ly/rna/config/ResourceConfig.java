@@ -1,4 +1,4 @@
-package com.wtu.sj.ly.rna.Config;/*
+package com.wtu.sj.ly.rna.config;/*
 package com.wtu.sj.ly.rna.Config;
 
 import com.wtu.sj.ly.rna.Interceptor.ResourceInterceptor;

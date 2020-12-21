@@ -1,6 +1,4 @@
-package com.wtu.sj.ly.rna.Utils;
-
-import com.xxl.conf.core.XxlConfClient;
+package com.wtu.sj.ly.rna.utils;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -15,13 +13,13 @@ import java.io.InputStreamReader;
 public class RmsdUtils {
     public static String rmsd(String py,String file1,String file2) {
 
-//        String pythonpath="C://Users//m1887//AppData//Local//Programs//Python//Python38//python.exe";
+        String pythonpath="D://python//python.exe";
 //        String pypath="F://pyCharm-workspace//calculate_rmsd.py";
 //        String[] arguments = new String[] {pythonpath,py,
 //                "F://pyCharm-workspace//ci2_1.pdb",
 //                "F://pyCharm-workspace//ci2_2.pdb"};
         //python 执行文件路径
-        String pythonpath= XxlConfClient.get("default.pyexe.path", null);
+//        String pythonpath= XxlConfClient.get("default.pyexe.path", null);
         String[] arguments = new String[] {pythonpath,py, file1, file2};
         String line = null;
         String res="";
