@@ -41,25 +41,7 @@ public class DownloadUtil {
      * @param time    下之前等待时间
      * @return
      * @throws Exception
-     *
-     *
-     * 关于下载文件的处理我觉得是做的不好的 主要体现在
-     *   首先由于是解析别人的服务器去下载别人的文件，前提是对应的预测服务器生成了文件
-     * 然后再去拿到链接再去下载，而对应预测服务器生成文件是需要时间的，而程序拿
-     * 到地址后就直接执行下载了，所以有失败的概率
-     *   其次，为了计算rmsd 对下载后的文件是做了处理的 第一步处理就是筛选出只含C的数
-     * 据，这是没问题的，但是python脚本计算的前提是进行比较的两个pdb数据文件长度是相
-     * 同的，貌似预测下载处理后的文件和试验体文件有些是不符合计算要求的，为了满足计算，
-     * 我又重新写了一个方法来对文件长度较长的文件进行裁剪，所以说，计算的结果可能是存在
-     * 原则上错误，所以这里是需要注意的
-     *   最后关于这一块程序，由于当时做毕设是偷懒的心思，我的文件都是下载到项目里面的，
-     * 所以执行完那文件可以在左侧target文件夹下面。关于文件这一块对于真正要使用
-     * 的系统来说应该说是很重要的一块的，一般都都是单独拿出来存放处理，而且处理方式应该
-     * 要保证性能的，但是我也没有系统的做过这块，不知道一般是怎么处理的，所以这里就暂时
-     * 先没改动，后续我将代码放在github上，后面有思路会更新在上面，或者你也可以说说你
-     * 的思路。
-     */
-
+     **/
     public static Map<String, String> download(String fileUrl, Boolean UNZip, int time) throws Exception {
         String path = null;
         String savaPath=null;
@@ -102,11 +84,7 @@ public class DownloadUtil {
                 }else {
                     copyFile(savaPath);
                 }
-               // new AsyncTaskUtil().executeAsyncTask(httpurl,file);
             } catch (Exception e) {
-                //这里的代码其实是不符合要求的 一般如何代码执行异常会抛出，针对我们
-                //这里，下载最有可能出现的问题是执行下载任务时对应网站文件还没生成，
-                //所以我就再次执行一便上述代码，正常情况这里应该是抛出错误返回的
                 Thread.sleep(time);
                 FileUtils.copyURLToFile(httpurl, file);
                 if (UNZip){

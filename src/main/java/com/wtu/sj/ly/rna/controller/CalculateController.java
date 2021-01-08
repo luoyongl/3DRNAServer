@@ -45,29 +45,29 @@ public class CalculateController {
     public static final int MCFOLD_TIME_OUT = RnaConstant.SystemConfig.MCFOLD_TIME_OUT;
 
     /**
-     *   python脚本位置
+     * python脚本位置
      */
     public static final String pyPath = RnaConstant.SystemConfig.CALCULATE_PY_PATH;
 
     /**
-     *     试验体pdb文件路径
+     * 试验体pdb文件路径
      */
-    public static final String pdbPath=RnaConstant.SystemConfig.CALCULATE_PDB_PATH;
+    public static final String pdbPath = RnaConstant.SystemConfig.CALCULATE_PDB_PATH;
 
     /**
      * mc请求url
      */
-    public static final String MCFOLD_URL=RnaConstant.UrlConfig.MCFOLD_URL;
+    public static final String MCFOLD_URL = RnaConstant.UrlConfig.MCFOLD_URL;
 
     /**
      * vfold请求url
      */
-    public static final String VFOLD_URL=RnaConstant.UrlConfig.VFOLD_URL;
+    public static final String VFOLD_URL = RnaConstant.UrlConfig.VFOLD_URL;
 
     /**
      * rnacomposer请求url
      */
-    public static final String RNACOMPOSER_URL=RnaConstant.UrlConfig.RNACOMPOSER_URL;
+    public static final String RNACOMPOSER_URL = RnaConstant.UrlConfig.RNACOMPOSER_URL;
 
     /**
      * MC-Fold 二级结构预测接口
@@ -80,7 +80,7 @@ public class CalculateController {
     public RnaResult mcFold(String Sequence) throws IOException {
 
         //解析地址拼接
-        String requestUrl=MCFOLD_URL+ "?pass=lucy&sequence=" + Sequence + "&top=20&explore=15&name=&mask=&singlehigh=&singlemed=&singlelow=";
+        String requestUrl = MCFOLD_URL + "?pass=lucy&sequence=" + Sequence + "&top=20&explore=15&name=&mask=&singlehigh=&singlemed=&singlelow=";
         TrustSSL.trustEveryone();
         //得到解析后的Document对象  通过jsoup接口操作获取我们需要的元素数据
         Document doc = Jsoup.connect(requestUrl).timeout(MCFOLD_TIME_OUT).get();
@@ -97,7 +97,7 @@ public class CalculateController {
     @RequestMapping("/showmc")
     public RnaResult showMc(String PdbID, String Strcuture, String Sequence) throws Exception {
         //同上 解析路径
-        String submitUrl = MCFOLD_URL+"?scriptgen=>structure|" + Sequence + "|" + Strcuture + "&action=Submit";
+        String submitUrl = MCFOLD_URL + "?scriptgen=>structure|" + Sequence + "|" + Strcuture + "&action=Submit";
         TrustSSL.trustEveryone();
         Map<String, String> map = new HashMap<>();
         Map<String, String> resmap;
@@ -127,23 +127,18 @@ public class CalculateController {
         return RnaResult.ok(map);
     }
 
-    /**
-     * 下面的代码类似mc-fold 区别在于可能正对不同的服务器 要解析的元素不同
-     * 解析的元素可以通过Chrome等浏览器访问对应的预测网站，右键查看元素，然
-     * 后根据自己需要哪些数据对应解析
-     */
     @RequestMapping("/vfold")
     public RnaResult VFold(String PdbID, String Sequence, String Strcuture) throws Exception {
 
-        String requestUrl = VFOLD_URL+"?sequence=" + Sequence + "&bps=" + Strcuture;
+        String requestUrl = VFOLD_URL + "?sequence=" + Sequence + "&bps=" + Strcuture;
         Map<String, String> map = new HashMap<>();
         Map<String, String> resmap = new HashMap<>();
         Map<String, String> filemap = new HashMap<>();
         String rmsd = "";
         TrustSSL.trustEveryone();
-        try{
+        try {
             logger.info("==========>开始处理vfold");
-            logger.info("==========>预期超时时间"+MCFOLD_TIME_OUT+"ms");
+            logger.info("==========>预期超时时间" + MCFOLD_TIME_OUT + "ms");
             Document skip = Jsoup.connect(requestUrl).timeout(MCFOLD_TIME_OUT).get();
             String downloadurl = skip.select("meta").attr("CONTENT").toString().trim().substring(6);
             Document doc = Jsoup.connect(requestUrl).timeout(MCFOLD_TIME_OUT).get();
@@ -153,7 +148,7 @@ public class CalculateController {
             if (suffix.equals(".pdb")) {
                 String download = "http://rna.physics.missouri.edu/OUTPUT/" + pdburl;
                 resmap = DownloadUtil.download(download, false, downloadWaittime);
-                if (StringUtils.isNotEmpty(PdbID)){
+                if (StringUtils.isNotEmpty(PdbID)) {
                     String file1 = pdbPath + PdbID + ".pdb";
                     String file2 = resmap.get("savaPath");
                     String filePath = file2.substring(1);
@@ -169,7 +164,7 @@ public class CalculateController {
             } else {
                 return RnaResult.fail();
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return RnaResult.ok();
@@ -221,7 +216,6 @@ public class CalculateController {
         return RnaResult.ok(map);
 
     }
-
 
 
     public static Document pdb(String url, Map<String, String> cookies) throws IOException {
