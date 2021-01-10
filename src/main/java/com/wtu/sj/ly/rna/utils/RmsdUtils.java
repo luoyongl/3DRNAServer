@@ -20,7 +20,7 @@ public class RmsdUtils {
     public static String rmsd(String py, String file1, String file2) {
 
         String pythonPath = XxlConfClient.get("default.pyexe.path");
-        logger.info("开始计算Rmsd,计算脚本:{},文件1:{},文件2:{}", file1, file2);
+        logger.info("开始计算Rmsd,计算脚本:{},文件1:{},文件2:{}", py,file1, file2);
         String[] arguments = new String[]{pythonPath, py, file1, file2};
         String line;
         String res = "";
