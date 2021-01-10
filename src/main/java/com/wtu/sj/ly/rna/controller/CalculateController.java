@@ -81,6 +81,7 @@ public class CalculateController {
 
         //解析地址拼接
         String requestUrl = MCFOLD_URL + "?pass=lucy&sequence=" + Sequence + "&top=20&explore=15&name=&mask=&singlehigh=&singlemed=&singlelow=";
+        logger.info("获取mc二级结构地址：{}",requestUrl);
         TrustSSL.trustEveryone();
         //得到解析后的Document对象  通过jsoup接口操作获取我们需要的元素数据
         Document doc = Jsoup.connect(requestUrl).timeout(MCFOLD_TIME_OUT).get();
@@ -97,7 +98,8 @@ public class CalculateController {
     @RequestMapping("/showmc")
     public RnaResult showMc(String PdbID, String Strcuture, String Sequence) throws Exception {
         //同上 解析路径
-        String submitUrl = MCFOLD_URL + "?scriptgen=>structure|" + Sequence + "|" + Strcuture + "&action=Submit";
+        String submitUrl ="https://major.iric.ca/cgi-bin/MC-Sym/mcsym.cgi?scriptgen=>structure|" + Sequence + "|" + Strcuture + "&action=Submit";
+        logger.info("MC解析地址：{}",submitUrl);
         TrustSSL.trustEveryone();
         Map<String, String> map = new HashMap<>();
         Map<String, String> resmap;
