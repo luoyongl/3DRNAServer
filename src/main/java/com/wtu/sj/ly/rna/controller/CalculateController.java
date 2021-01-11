@@ -2,10 +2,7 @@ package com.wtu.sj.ly.rna.controller;
 
 import com.wtu.sj.ly.rna.constant.RnaConstant;
 import com.wtu.sj.ly.rna.openapi.pojo.RnaResult;
-import com.wtu.sj.ly.rna.utils.DownloadUtil;
-import com.wtu.sj.ly.rna.utils.RmsdUtils;
-import com.wtu.sj.ly.rna.utils.TrustSSL;
-import com.wtu.sj.ly.rna.utils.WriteFileUtils;
+import com.wtu.sj.ly.rna.utils.*;
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -126,6 +123,7 @@ public class CalculateController {
         map.put("structPath", resmap.get("returnPath"));
         map.put("prePath", resmap.get("prePath"));
         map.put("rmsd", rmsd);
+        map.put("dssrJson",resmap.get("jsonPath"));
         return RnaResult.ok(map);
     }
 
@@ -157,11 +155,13 @@ public class CalculateController {
                     String fileSelct = filePath.substring(0, filePath.lastIndexOf(".")) + "Select.pdb";
                     WriteFileUtils.read(filePath, fileSelct);
                     filemap = WriteFileUtils.AliginFile(file1, fileSelct);
-                    rmsd = RmsdUtils.rmsd(pyPath, filemap.get("file1"), filemap.get("file2"));
+
+//                    rmsd = RmsdUtils.rmsd(pyPath, filemap.get("file1"), filemap.get("file2"));
                 }
                 map.put("structPath", resmap.get("returnPath"));
                 map.put("prePath", resmap.get("prePath"));
                 map.put("rmsd", rmsd);
+                map.put("dssrJson",resmap.get("jsonPath"));
                 return RnaResult.ok(map);
             } else {
                 return RnaResult.fail();
@@ -215,6 +215,7 @@ public class CalculateController {
         map.put("structPath", resmap.get("returnPath"));
         map.put("prePath", resmap.get("prePath"));
         map.put("rmsd", rmsd);
+        map.put("dssrJson",resmap.get("jsonPath"));
         return RnaResult.ok(map);
 
     }

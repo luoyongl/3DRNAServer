@@ -95,6 +95,8 @@ public class DownloadUtil {
                 }
                 e.printStackTrace();
             }
+            dssrUtils.dssrJson("F:\\study\\3DRNAServer\\target\\classes\\static\\py",savaPath,uuidName+".json");
+            map.put("jsonPath","http://localhost:"+serverPort+"/download/"+ dataStr+ "/"+uuidName+".json");
         }
         map.put("returnPath",returnPath);
         map.put("prePath",prePath);
